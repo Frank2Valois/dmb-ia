@@ -1693,9 +1693,12 @@ body::before {
       <select class="hud-select" id="model-select" style="padding-right:28px;max-width:200px;"></select>
       <span class="context-help" id="model-help-btn" style="position:absolute;right:6px;pointer-events:auto;z-index:10;">?</span>
     </div>
-    <select class="hud-select" id="agent-select">
-      <option value="">▸ NO AGENT</option>
-    </select>
+    <div style="position:relative;display:inline-flex;align-items:center;flex-shrink:0;">
+      <select class="hud-select" id="agent-select" style="padding-right:28px;max-width:180px;">
+        <option value="">▸ NO AGENT</option>
+      </select>
+      <span class="context-help" id="agent-help-btn" style="position:absolute;right:6px;pointer-events:auto;z-index:10;">?</span>
+    </div>
     <button class="hud-btn" id="clear-chat">⌫ CLEAR</button>
     <button class="hud-btn" id="new-chat">+ NEW</button>
     <button class="hud-btn" id="open-archives-desktop">⬡ ARCHIVES</button>
@@ -2563,8 +2566,28 @@ function updateContextMeter() {
     const pct = Math.min(100, Math.round((totalChars / maxCtx) * 100));
     const bar = document.getElementById('context-bar');
     const label = document.getElementById('context-label');
-    // Tooltip modèle
-    const modelHelpBtn = document.getElementById('model-help-btn');
+    // Tooltip agent
+    const agentHelpBtn = document.getElementById('agent-help-btn');
+    if (agentHelpBtn && !document.getElementById('agent-tooltip-popup')) {
+      const tip3 = document.createElement('div');
+      tip3.id = 'agent-tooltip-popup';
+      tip3.style.cssText = 'display:none;position:fixed;z-index:9999;width:280px;padding:12px 14px;background:var(--plate);border:1px solid rgba(0,229,255,0.3);border-radius:6px;box-shadow:0 8px 32px rgba(0,0,0,0.5);font-family:\'Exo 2\',sans-serif;font-size:12px;color:var(--text);line-height:1.8;pointer-events:none;';
+      tip3.innerHTML = `<strong style="color:var(--cyan)">Choisir un agent IA</strong><br><br>
+Un agent est un assistant spécialisé dans un domaine précis. Il connaît votre contexte et répond avec expertise.<br><br>
+🎯 <strong style="color:var(--text-bright)">Prospecteur Elite</strong> → trouve des clients B2B<br>
+📈 <strong style="color:var(--text-bright)">SEO/GEO Master</strong> → améliore votre visibilité web<br>
+📱 <strong style="color:var(--text-bright)">Monétisation TikTok</strong> → stratégie contenu viral<br>
+💰 <strong style="color:var(--text-bright)">Finance Stratège</strong> → conseils patrimoniaux<br><br>
+<span style="color:var(--text-dim)">💡 Sans agent sélectionné, HYDO.AI répond en mode généraliste.</span>`;
+      document.body.appendChild(tip3);
+      agentHelpBtn.addEventListener('mouseenter', () => {
+        const rect = agentHelpBtn.getBoundingClientRect();
+        tip3.style.top = (rect.bottom + 8) + 'px';
+        tip3.style.left = Math.max(8, rect.left - 240) + 'px';
+        tip3.style.display = 'block';
+      });
+      agentHelpBtn.addEventListener('mouseleave', () => { tip3.style.display = 'none'; });
+    }
     if (modelHelpBtn && !document.getElementById('model-tooltip-popup')) {
       const tip2 = document.createElement('div');
       tip2.id = 'model-tooltip-popup';
