@@ -12,12 +12,12 @@
    HYDO.AI DESIGN SYSTEM — CYBER / 2ADVANCED
    ═══════════════════════════════════════════ */
 :root {
-  --void: #020509;
-  --deep: #050d18;
-  --hull: #091525;
-  --plate: #0d1e33;
-  --grid: #122540;
-  --wire: #1a3455;
+  --void: #0e1a2b;
+  --deep: #132236;
+  --hull: #1a2d45;
+  --plate: #1f3452;
+  --grid: #253d5e;
+  --wire: #2e4d72;
   --cyan: #00e5ff;
   --cyan-dim: rgba(0, 229, 255, 0.15);
   --cyan-glow: rgba(0, 229, 255, 0.35);
@@ -28,9 +28,9 @@
   --violet: #7c3aed;
   --violet-dim: rgba(124, 58, 237, 0.2);
   --gold: #f59e0b;
-  --text: #b8d4f0;
-  --text-bright: #e8f4ff;
-  --text-dim: #4a6b8a;
+  --text: #c8dff5;
+  --text-bright: #eaf4ff;
+  --text-dim: #5a7a9a;
   --text-code: #00e5ff;
   --danger: #ff3366;
   --success: #00ff9d;
@@ -1201,27 +1201,48 @@ body::before {
 
 /* ═══ THEME SWITCHER ═══ */
 [data-theme="light"] {
-  --void: #f0f4f8;
-  --deep: #e8edf5;
+  --void: #f4f7fb;
+  --deep: #ffffff;
   --hull: #ffffff;
-  --plate: #f5f8fc;
-  --grid: #dde5ef;
-  --wire: #c8d5e5;
-  --text: #2d4a6b;
+  --plate: #f8fafd;
+  --grid: #e8eef7;
+  --wire: #d0dcea;
+  --text: #334e6b;
   --text-bright: #0d1f35;
-  --text-dim: #7a9ab8;
+  --text-dim: #8aa0b8;
   --text-code: #0070a8;
-  --cyan: #0070a8;
-  --cyan-dim: rgba(0,112,168,0.1);
-  --cyan-glow: rgba(0,112,168,0.25);
+  --cyan: #0077cc;
+  --cyan-dim: rgba(0,119,204,0.1);
+  --cyan-glow: rgba(0,119,204,0.25);
   --neon: #00875a;
   --neon-dim: rgba(0,135,90,0.1);
-  --void: #f2f6fb;
+  --scanline: none;
+  --hud-border: 1px solid rgba(0,119,204,0.2);
+  --border: 1px solid #d0dcea;
+  --border-cyan: 1px solid rgba(0,119,204,0.3);
 }
 [data-theme="light"] body {
-  background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,112,168,0.05) 0%, transparent 60%);
+  background: #f4f7fb;
+  background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,119,204,0.06) 0%, transparent 60%);
 }
 [data-theme="light"] body::before { display: none; }
+[data-theme="light"] .message.assistant { border-left-color: rgba(0,119,204,0.4); background: #ffffff; }
+[data-theme="light"] .message.user { background: #eef4fb; border-color: rgba(0,119,204,0.2); }
+[data-theme="light"] .msg-label { color: #8aa0b8; }
+[data-theme="light"] .message.user .msg-label { color: rgba(0,119,204,0.7); }
+[data-theme="light"] #hydo-header { background: rgba(244,247,251,0.95); border-bottom: 1px solid #d0dcea; }
+[data-theme="light"] #input-area { background: rgba(244,247,251,0.98); border-top: 1px solid #d0dcea; }
+[data-theme="light"] #user-input { background: #ffffff; border-color: #d0dcea; color: #0d1f35; }
+[data-theme="light"] .hud-btn { background: #ffffff; border-color: #d0dcea; color: #334e6b; }
+[data-theme="light"] .hud-select { background: #ffffff; border-color: #d0dcea; color: #334e6b; }
+[data-theme="light"] .message-content strong { color: #0d1f35; }
+[data-theme="light"] .message-content h1,
+[data-theme="light"] .message-content h2,
+[data-theme="light"] .message-content h3 { color: #0077cc; }
+[data-theme="light"] .message-content code { background: rgba(0,119,204,0.08); border-color: rgba(0,119,204,0.2); color: #0077cc; }
+[data-theme="light"] .message-content pre { background: #f0f4f8; border-color: #d0dcea; border-left-color: #0077cc; }
+[data-theme="light"] .message-content th { background: rgba(0,119,204,0.08); color: #0077cc; }
+[data-theme="light"] .message-content td { color: #334e6b; }
 
 [data-theme="midnight"] {
   --void: #09090f;
@@ -1601,6 +1622,7 @@ body::before {
 
   <div class="header-right">
     <span class="status-pill" id="api-status"><span class="status-dot"></span>OFFLINE</span>
+    <button class="hud-btn" id="theme-toggle-btn" title="Changer de thème" style="font-size:16px;padding:4px 10px;">🌙</button>
     <select class="hud-select" id="theme-select">
       <option value="cyber">◈ CYBER</option>
       <option value="midnight">◈ MIDNIGHT</option>
@@ -3539,7 +3561,27 @@ function bindEvents() {
   $("#theme-select").onchange = e => {
     document.documentElement.dataset.theme = e.target.value;
     db.put('settings', { id:'theme', value:e.target.value }).catch(()=>{});
+    updateThemeToggleBtn(e.target.value);
   };
+
+  // Theme toggle button (☀️/🌙)
+  function updateThemeToggleBtn(theme) {
+    const btn = $("#theme-toggle-btn");
+    if (!btn) return;
+    if (theme === 'light') { btn.textContent = '🌙'; btn.title = 'Passer en mode sombre'; }
+    else { btn.textContent = '☀️'; btn.title = 'Passer en mode clair'; }
+  }
+  if ($("#theme-toggle-btn")) {
+    $("#theme-toggle-btn").onclick = () => {
+      const current = document.documentElement.dataset.theme;
+      const next = current === 'light' ? 'cyber' : 'light';
+      document.documentElement.dataset.theme = next;
+      $("#theme-select").value = next;
+      db.put('settings', { id:'theme', value:next }).catch(()=>{});
+      updateThemeToggleBtn(next);
+    };
+    updateThemeToggleBtn(document.documentElement.dataset.theme);
+  }
 
   // API Modal
   $("#open-api-modal").onclick = () => {
