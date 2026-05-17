@@ -251,122 +251,6 @@ body::before {
   50% { opacity: 0.4; box-shadow: none; }
 }
 
-/* ═══ APP LAYOUT (sidebar + main) ═══ */
-#app-layout {
-  display: flex;
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
-  position: relative;
-  z-index: 1;
-}
-#main-area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  overflow: hidden;
-}
-
-/* ═══ SIDEBAR ═══ */
-#sidebar {
-  width: 220px;
-  min-width: 220px;
-  background: var(--deep);
-  border-right: var(--hud-border);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 12px 8px 12px;
-  border-bottom: var(--hud-border);
-  flex-shrink: 0;
-}
-.sidebar-title { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: var(--cyan); }
-.sidebar-new-btn {
-  background: rgba(0,229,255,0.12);
-  border: 1px solid rgba(0,229,255,0.3);
-  color: var(--cyan);
-  font-size: 16px;
-  width: 24px; height: 24px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: var(--transition);
-}
-.sidebar-new-btn:hover { background: rgba(0,229,255,0.25); }
-.sidebar-search { padding: 8px 10px; border-bottom: var(--hud-border); flex-shrink: 0; }
-.sidebar-search input {
-  width: 100%;
-  background: var(--hull);
-  border: var(--hud-border);
-  color: var(--text);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  padding: 5px 8px;
-  border-radius: var(--r);
-  outline: none;
-}
-.sidebar-search input:focus { border-color: var(--cyan); }
-.sidebar-search input::placeholder { color: var(--text-dim); }
-.sidebar-list { flex: 1; overflow-y: auto; padding: 4px 0; }
-.sidebar-empty { padding: 16px 12px; font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); text-align: center; }
-.sidebar-item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding: 8px 10px;
-  cursor: pointer;
-  border-left: 2px solid transparent;
-  transition: var(--transition);
-  gap: 6px;
-}
-.sidebar-item:hover { background: rgba(0,229,255,0.06); border-left-color: rgba(0,229,255,0.3); }
-.sidebar-item.active { background: rgba(0,229,255,0.1); border-left-color: var(--cyan); }
-.sidebar-item.pinned .sidebar-item-title::before { content: '📌 '; font-size: 9px; }
-.sidebar-item-info { flex: 1; min-width: 0; }
-.sidebar-item-title { font-family: var(--font-mono); font-size: 11px; color: var(--text-bright); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.sidebar-item-date { font-family: var(--font-mono); font-size: 9px; color: var(--text-dim); margin-top: 2px; }
-.sidebar-item-menu-btn {
-  background: none; border: none;
-  color: var(--text-dim);
-  font-size: 14px; cursor: pointer;
-  padding: 2px 4px; border-radius: 3px;
-  opacity: 0; transition: var(--transition); flex-shrink: 0;
-}
-.sidebar-item:hover .sidebar-item-menu-btn { opacity: 1; }
-.sidebar-item-menu-btn:hover { color: var(--cyan); background: rgba(0,229,255,0.1); }
-.sidebar-dropdown {
-  position: fixed;
-  background: var(--plate);
-  border: var(--hud-border);
-  border-radius: var(--r);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-  z-index: 9999;
-  min-width: 160px;
-  overflow: hidden;
-}
-.sidebar-dropdown-item {
-  display: flex; align-items: center; gap: 8px;
-  padding: 9px 14px;
-  font-family: var(--font-mono); font-size: 11px;
-  color: var(--text); cursor: pointer;
-  transition: var(--transition);
-}
-.sidebar-dropdown-item:hover { background: rgba(0,229,255,0.08); color: var(--cyan); }
-.sidebar-dropdown-item.danger:hover { background: rgba(255,51,102,0.1); color: var(--danger); }
-[data-theme="light"] #sidebar { background: #f0f5fb; border-right-color: #d0dcea; }
-[data-theme="light"] .sidebar-item:hover { background: rgba(0,119,204,0.06); }
-[data-theme="light"] .sidebar-item.active { background: rgba(0,119,204,0.1); border-left-color: #0077cc; }
-[data-theme="light"] .sidebar-item-title { color: #0d1f35; }
-[data-theme="light"] .sidebar-dropdown { background: #ffffff; border-color: #d0dcea; }
-[data-theme="light"] .sidebar-dropdown-item { color: #334e6b; }
-
 /* ═══ CHAT AREA ═══ */
 #chat-container {
   flex: 1;
@@ -1857,26 +1741,6 @@ body::before {
   </div>
 </div>
 
-<!-- ═══════════════════ SIDEBAR + CHAT LAYOUT ═══════════════════ -->
-<div id="app-layout">
-
-<!-- SIDEBAR GAUCHE -->
-<aside id="sidebar">
-  <div class="sidebar-header">
-    <span class="sidebar-title">⬡ RÉCENTS</span>
-    <button class="sidebar-new-btn" id="sidebar-new-btn" title="Nouvelle conversation">+</button>
-  </div>
-  <div class="sidebar-search">
-    <input type="text" id="sidebar-search" placeholder="Rechercher…">
-  </div>
-  <div class="sidebar-list" id="sidebar-list">
-    <div class="sidebar-empty">Aucune conversation</div>
-  </div>
-</aside>
-
-<!-- ZONE PRINCIPALE -->
-<div id="main-area">
-
 <!-- ═══════════════════ CHAT ═══════════════════ -->
 <main id="chat-container"></main>
 
@@ -1888,9 +1752,6 @@ body::before {
   <textarea id="user-input" placeholder="Transmettez votre message… (Entrée pour envoyer, Maj+Entrée pour nouvelle ligne)" rows="1"></textarea>
   <button id="send-btn">SEND ▶</button>
 </div>
-
-</div><!-- /main-area -->
-</div><!-- /app-layout -->
 
 <!-- ═══════════════════ ARCHIVES ═══════════════════ -->
 <button id="archives-btn" title="Archives des conversations">⬡</button>
@@ -2745,7 +2606,7 @@ async function renderArchives() {
 window.loadArchiveChat = async id => {
   await loadChat(id);
   closeArchivesPanel();
-  await renderArchives(); renderSidebar(); await renderSidebar();
+  await renderArchives();
   toast("Conversation chargée", "success");
 };
 
@@ -2753,7 +2614,7 @@ window.deleteArchiveChat = async id => {
   if (!confirm("Supprimer cette conversation ?")) return;
   await db.delete('chats', id);
   if (state.chatId === id) await newChat();
-  await renderArchives(); renderSidebar(); await renderSidebar();
+  await renderArchives();
   toast("Conversation supprimée", "success");
 };
 
@@ -2763,109 +2624,9 @@ window.toggleFav = async id => {
     if (!chat) return;
     chat.fav = !chat.fav;
     await db.put('chats', chat);
-    await renderArchives(); renderSidebar(); await renderSidebar();
+    await renderArchives();
   } catch(e) {}
 };
-
-// ════════════════════════════════════════
-// SIDEBAR RÉCENTS
-// ════════════════════════════════════════
-let sidebarSearchQuery = "";
-let sidebarDropdown = null;
-
-function closeSidebarDropdown() {
-  if (sidebarDropdown) { sidebarDropdown.remove(); sidebarDropdown = null; }
-}
-
-async function renderSidebar() {
-  const list = $("#sidebar-list");
-  if (!list) return;
-  try {
-    let chats = await db.getAll('chats') || [];
-    chats = chats.sort((a,b) => {
-      if (a.pinned && !b.pinned) return -1;
-      if (!a.pinned && b.pinned) return 1;
-      return (b.updated||0) - (a.updated||0);
-    });
-    if (sidebarSearchQuery) {
-      const q = sidebarSearchQuery.toLowerCase();
-      chats = chats.filter(c => (c.title||"").toLowerCase().includes(q));
-    }
-    if (!chats.length) {
-      list.innerHTML = '<div class="sidebar-empty">Aucune conversation</div>';
-      return;
-    }
-    list.innerHTML = '';
-    chats.forEach(c => {
-      const isActive = c.id === state.chatId;
-      const date = c.updated ? new Date(c.updated).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'}) : '';
-      const div = document.createElement('div');
-      div.className = 'sidebar-item' + (isActive ? ' active' : '') + (c.pinned ? ' pinned' : '');
-      div.dataset.id = c.id;
-      div.innerHTML = `
-        <div class="sidebar-item-info">
-          <div class="sidebar-item-title">${escapeHtml(c.title||'Sans titre')}</div>
-          <div class="sidebar-item-date">${date}</div>
-        </div>
-        <button class="sidebar-item-menu-btn" data-id="${c.id}" title="Options">⋮</button>`;
-      div.addEventListener('click', async (e) => {
-        if (e.target.classList.contains('sidebar-item-menu-btn')) return;
-        await loadChat(c.id);
-        await renderSidebar();
-        await renderArchives(); renderSidebar(); await renderSidebar();
-        toast("Conversation chargée", "success");
-      });
-      div.querySelector('.sidebar-item-menu-btn').addEventListener('click', (e) => {
-        e.stopPropagation();
-        openSidebarMenu(e, c);
-      });
-      list.appendChild(div);
-    });
-  } catch(e) { list.innerHTML = '<div class="sidebar-empty">Erreur</div>'; }
-}
-
-function openSidebarMenu(e, chat) {
-  closeSidebarDropdown();
-  const btn = e.currentTarget;
-  const rect = btn.getBoundingClientRect();
-  const dd = document.createElement('div');
-  dd.className = 'sidebar-dropdown';
-  dd.style.top = rect.bottom + 4 + 'px';
-  dd.style.left = rect.left - 130 + 'px';
-  dd.innerHTML = `
-    <div class="sidebar-dropdown-item" data-action="pin">📌 ${chat.pinned ? 'Désépingler' : 'Épingler'}</div>
-    <div class="sidebar-dropdown-item" data-action="rename">✏️ Renommer</div>
-    <div class="sidebar-dropdown-item danger" data-action="delete">🗑 Supprimer</div>`;
-  dd.addEventListener('click', async (e2) => {
-    const action = e2.target.dataset.action;
-    closeSidebarDropdown();
-    if (action === 'pin') {
-      chat.pinned = !chat.pinned;
-      await db.put('chats', chat);
-      await renderSidebar();
-      toast(chat.pinned ? "Conversation épinglée" : "Conversation désépinglée", "success");
-    } else if (action === 'rename') {
-      const newTitle = prompt("Nouveau nom :", chat.title || "Sans titre");
-      if (newTitle && newTitle.trim()) {
-        chat.title = newTitle.trim();
-        await db.put('chats', chat);
-        await renderSidebar();
-        await renderArchives(); renderSidebar(); await renderSidebar();
-        toast("Renommée : " + chat.title, "success");
-      }
-    } else if (action === 'delete') {
-      if (!confirm("Supprimer cette conversation ?")) return;
-      await db.delete('chats', chat.id);
-      if (state.chatId === chat.id) await newChat();
-      await renderSidebar();
-      await renderArchives(); renderSidebar(); await renderSidebar();
-      toast("Conversation supprimée", "success");
-    }
-  });
-  document.body.appendChild(dd);
-  sidebarDropdown = dd;
-  setTimeout(() => document.addEventListener('click', closeSidebarDropdown, { once: true }), 10);
-}
 
 // ════════════════════════════════════════
 // SAVE / LOAD CHAT
@@ -2883,7 +2644,7 @@ async function saveChat() {
       updated: now(),
       fav: existingChat?.fav || false
     });
-    renderArchives(); renderSidebar();
+    renderArchives();
   } catch(e) { console.error("saveChat:", e); }
 }
 
@@ -3758,7 +3519,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Memories & agents
   await memory.getAll();
   await loadAgents();
-  await renderArchives(); renderSidebar(); await renderSidebar();
+  await renderArchives();
 
   // Chat
   try {
@@ -3783,7 +3544,7 @@ function bindEvents() {
 
   const openArchivesPanel = () => {
     archivesPanel.classList.add("active");
-    renderArchives(); renderSidebar();
+    renderArchives();
   };
 
   const closeArchivesPanel = () => {
@@ -3818,18 +3579,14 @@ function bindEvents() {
     $("#archives-new-btn").onclick = e => { e.stopPropagation(); newChat(); closeArchivesPanel(); };
   }
   if ($("#archives-search-input")) {
-    $("#archives-search-input").oninput = e => { archivesSearchQuery = e.target.value; renderArchives(); renderSidebar(); };
+    $("#archives-search-input").oninput = e => { archivesSearchQuery = e.target.value; renderArchives(); };
     $("#archives-search-input").onclick = e => e.stopPropagation();
   }
 
   // Sidebar init
-  if ($("#sidebar-new-btn")) {
-    $("#sidebar-new-btn").onclick = () => newChat();
   }
-  if ($("#sidebar-search")) {
-    $("#sidebar-search").oninput = e => { sidebarSearchQuery = e.target.value; renderSidebar(); };
   }
-  await renderSidebar();
+  
 
   // Scroll to bottom
   const scrollBottomBtn = $("#scroll-bottom");
