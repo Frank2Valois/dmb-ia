@@ -1227,10 +1227,41 @@ body::before {
 }
 [data-theme="light"] body::before { display: none; }
 [data-theme="light"] .message.assistant { border-left-color: rgba(0,119,204,0.4); background: #ffffff; }
-[data-theme="light"] .message.user { background: #eef4fb; border-color: rgba(0,119,204,0.2); }
+[data-theme="light"] .message.user {
+  background: linear-gradient(135deg, #dbeeff, #e8f4ff);
+  border: 1px solid rgba(0,119,204,0.35);
+  border-left: 3px solid #0077cc;
+}
 [data-theme="light"] .msg-label { color: #8aa0b8; }
-[data-theme="light"] .message.user .msg-label { color: rgba(0,119,204,0.7); }
-[data-theme="light"] #hydo-header { background: rgba(244,247,251,0.95); border-bottom: 1px solid #d0dcea; }
+[data-theme="light"] .message.user .msg-label {
+  color: #0077cc;
+  font-weight: 600;
+}
+[data-theme="light"] #hydo-header {
+  background: linear-gradient(135deg, #1a3a5c, #1e4570);
+  border-bottom: 1px solid #2a5080;
+}
+[data-theme="light"] #hydo-header .brand-name,
+[data-theme="light"] #hydo-header .brand-sub { color: #e8f4ff; }
+[data-theme="light"] #hydo-header .hud-btn {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.25);
+  color: #e8f4ff;
+}
+[data-theme="light"] #hydo-header .hud-select {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.25);
+  color: #e8f4ff;
+}
+[data-theme="light"] #hydo-header .status-pill {
+  background: rgba(0,255,157,0.15);
+  border-color: rgba(0,255,157,0.4);
+  color: #00ff9d;
+}
+[data-theme="light"] #hydo-header #theme-toggle-btn {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.3);
+}
 [data-theme="light"] #input-area { background: rgba(244,247,251,0.98); border-top: 1px solid #d0dcea; }
 [data-theme="light"] #user-input { background: #ffffff; border-color: #d0dcea; color: #0d1f35; }
 [data-theme="light"] .hud-btn { background: #ffffff; border-color: #d0dcea; color: #334e6b; }
