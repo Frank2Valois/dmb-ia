@@ -2002,6 +2002,15 @@ body::before {
         Toutes vos données (conversations, agents, mémoires) sont stockées dans la base IndexedDB de votre navigateur. Exportez-les pour les sauvegarder ou les transférer sur un autre appareil.
       </div>
 
+      <!-- SAUVEGARDE AUTO -->
+      <div id="auto-backup-status" style="margin-bottom:14px;padding:10px 14px;border-radius:var(--r);border:1px solid var(--wire);background:var(--hull);font-family:var(--font-mono);font-size:11px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
+        <div>
+          <div id="auto-backup-label" style="color:var(--text-dim)">⏳ Calcul de la dernière sauvegarde…</div>
+          <div id="auto-backup-next" style="color:var(--text-dim);font-size:10px;margin-top:3px;"></div>
+        </div>
+        <button class="btn-ghost" id="btn-backup-now" style="font-size:10px;padding:4px 10px;white-space:nowrap;">💾 Sauvegarder maintenant</button>
+      </div>
+
       <!-- STATS -->
       <div class="data-grid" id="data-stats">
         <div class="data-card"><div class="data-card-value" id="stat-chats">—</div><div class="data-card-label">Conversations</div></div>
@@ -2991,9 +3000,62 @@ async function exportData() {
     a.download = `hydo-backup-${new Date().toISOString().slice(0,10)}.hydo.json`;
     a.click();
     URL.revokeObjectURL(url);
+    // Enregistrer la date de sauvegarde
+    const now = new Date().toISOString();
+    localStorage.setItem('hydo_last_backup', now);
     toast("Données exportées avec succès !", "success");
+    updateBackupStatus();
   } catch(e) {
     toast("Erreur export : " + e.message, "error");
+  }
+}
+
+function updateBackupStatus() {
+  const label = document.getElementById('auto-backup-label');
+  const next = document.getElementById('auto-backup-next');
+  const status = document.getElementById('auto-backup-status');
+  if (!label || !next || !status) return;
+  const lastBackup = localStorage.getItem('hydo_last_backup');
+  if (!lastBackup) {
+    label.style.color = 'var(--danger)';
+    label.textContent = '⚠ Aucune sauvegarde effectuée — vos données ne sont pas protégées';
+    next.textContent = '👉 Cliquez sur "Sauvegarder maintenant" pour protéger vos données';
+    status.style.borderColor = 'rgba(255,51,102,0.4)';
+    return;
+  }
+  const last = new Date(lastBackup);
+  const now = new Date();
+  const diffDays = Math.floor((now - last) / (1000 * 60 * 60 * 24));
+  const nextBackup = new Date(last.getTime() + 7 * 24 * 60 * 60 * 1000);
+  const dateStr = last.toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'numeric'});
+  const timeStr = last.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+  const nextStr = nextBackup.toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'numeric'});
+  if (diffDays === 0) {
+    label.style.color = 'var(--neon)';
+    label.textContent = `✅ Dernière sauvegarde : aujourd'hui à ${timeStr}`;
+    status.style.borderColor = 'rgba(0,255,157,0.4)';
+  } else if (diffDays <= 7) {
+    label.style.color = 'var(--text-bright)';
+    label.textContent = `✅ Dernière sauvegarde : ${dateStr} à ${timeStr}`;
+    status.style.borderColor = 'rgba(0,229,255,0.3)';
+  } else {
+    label.style.color = 'var(--warning)';
+    label.textContent = `⚠ Dernière sauvegarde : ${dateStr} à ${timeStr} — il y a ${diffDays} jours`;
+    status.style.borderColor = 'rgba(245,158,11,0.4)';
+  }
+  next.style.color = 'var(--text-dim)';
+  next.textContent = `Prochaine sauvegarde recommandée : ${nextStr}`;
+}
+
+// Sauvegarde automatique hebdomadaire
+function checkAutoBackup() {
+  const lastBackup = localStorage.getItem('hydo_last_backup');
+  if (!lastBackup) return; // Pas de sauvegarde précédente → ne pas forcer
+  const last = new Date(lastBackup);
+  const diffDays = Math.floor((new Date() - last) / (1000 * 60 * 60 * 24));
+  if (diffDays >= 7) {
+    exportData();
+    toast("⏰ Sauvegarde automatique hebdomadaire effectuée !", "success");
   }
 }
 
@@ -3722,6 +3784,8 @@ function bindEvents() {
   if ($("#sidebar-new-btn")) $("#sidebar-new-btn").onclick = () => newChat();
   if ($("#sidebar-search")) $("#sidebar-search").oninput = e => { sidebarSearchQuery = e.target.value; renderSidebar(); };
   renderSidebar();
+  // Vérifier sauvegarde automatique au démarrage
+  setTimeout(() => checkAutoBackup(), 3000);
 
   // Scroll to bottom
   const scrollBottomBtn = $("#scroll-bottom");
@@ -3925,6 +3989,7 @@ function bindEvents() {
   // Data Modal
   const openDataModal = async () => {
     await computeStats();
+    updateBackupStatus();
     $("#data-modal").classList.add("active");
   };
   const closeDataModal = () => $("#data-modal").classList.remove("active");
@@ -3934,6 +3999,7 @@ function bindEvents() {
   if ($("#data-modal")) $("#data-modal").onclick = e => { if (e.target === $("#data-modal")) closeDataModal(); };
 
   if ($("#btn-export")) $("#btn-export").onclick = exportData;
+  if ($("#btn-backup-now")) $("#btn-backup-now").onclick = exportData;
 
   if ($("#btn-clear-all")) $("#btn-clear-all").onclick = async () => {
     if (!confirm("⚠ Supprimer TOUTES les données locales HYDO.AI ? Cette action est irréversible.")) return;
