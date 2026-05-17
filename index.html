@@ -1689,7 +1689,7 @@ body::before {
   </div>
 
   <div class="header-controls">
-    <select class="hud-select" id="model-select"></select>
+    <select class="hud-select" id="model-select"></select><span class="context-help" id="model-help-btn">?</span>
     <select class="hud-select" id="agent-select">
       <option value="">▸ NO AGENT</option>
     </select>
@@ -2560,8 +2560,27 @@ function updateContextMeter() {
     const pct = Math.min(100, Math.round((totalChars / maxCtx) * 100));
     const bar = document.getElementById('context-bar');
     const label = document.getElementById('context-label');
-    // Tooltip ? button
-    const helpBtn = document.getElementById('context-help-btn');
+    // Tooltip modèle
+    const modelHelpBtn = document.getElementById('model-help-btn');
+    if (modelHelpBtn && !document.getElementById('model-tooltip-popup')) {
+      const tip2 = document.createElement('div');
+      tip2.id = 'model-tooltip-popup';
+      tip2.style.cssText = 'display:none;position:fixed;z-index:9999;width:280px;padding:12px 14px;background:var(--plate);border:1px solid rgba(0,229,255,0.3);border-radius:6px;box-shadow:0 8px 32px rgba(0,0,0,0.5);font-family:\'Exo 2\',sans-serif;font-size:12px;color:var(--text);line-height:1.8;pointer-events:none;';
+      tip2.innerHTML = `<strong style="color:var(--cyan)">Choisir un modèle IA</strong><br><br>
+C'est le "cerveau" que vous utilisez. Plus il est puissant, meilleures sont les réponses — mais il consomme plus de crédits.<br><br>
+🔥 <strong style="color:var(--text-bright)">Puissant</strong> → Mistral Omega, Large : pour analyses complexes, rédaction longue<br>
+⚡ <strong style="color:var(--text-bright)">Rapide & économique</strong> → Mistral Small, Flash : pour questions simples, réponses courtes<br>
+💻 <strong style="color:var(--text-bright)">Code</strong> → CodeForge (Codestral) : pour tout ce qui touche à la programmation<br><br>
+<span style="color:var(--text-dim)">💡 En cas de doute, laissez CodeForge — il convient à 90% des usages.</span>`;
+      document.body.appendChild(tip2);
+      modelHelpBtn.addEventListener('mouseenter', () => {
+        const rect = modelHelpBtn.getBoundingClientRect();
+        tip2.style.top = (rect.bottom + 8) + 'px';
+        tip2.style.left = Math.max(8, rect.left - 240) + 'px';
+        tip2.style.display = 'block';
+      });
+      modelHelpBtn.addEventListener('mouseleave', () => { tip2.style.display = 'none'; });
+    }
     if (helpBtn && !document.getElementById('context-tooltip-popup')) {
       const tip = document.createElement('div');
       tip.id = 'context-tooltip-popup';
