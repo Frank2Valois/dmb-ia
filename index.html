@@ -1689,7 +1689,10 @@ body::before {
   </div>
 
   <div class="header-controls">
-    <select class="hud-select" id="model-select"></select><span class="context-help" id="model-help-btn">?</span>
+    <div style="position:relative;display:inline-flex;align-items:center;flex-shrink:0;">
+      <select class="hud-select" id="model-select" style="padding-right:28px;max-width:200px;"></select>
+      <span class="context-help" id="model-help-btn" style="position:absolute;right:6px;pointer-events:auto;z-index:10;">?</span>
+    </div>
     <select class="hud-select" id="agent-select">
       <option value="">▸ NO AGENT</option>
     </select>
