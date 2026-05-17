@@ -280,27 +280,27 @@ body::before {
 
 .message.user {
   align-self: flex-end;
-  background: linear-gradient(135deg, rgba(0,229,255,0.12), rgba(0,255,157,0.06));
+  background: linear-gradient(135deg, rgba(0,229,255,0.22), rgba(0,255,157,0.12));
   border: var(--border-cyan);
   border-bottom-right-radius: 3px;
   color: var(--text-bright);
-  box-shadow: 0 4px 20px rgba(0,229,255,0.1);
+  box-shadow: 0 4px 20px rgba(0,229,255,0.15);
 }
 .message.user::before {
   content: '';
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;
   border-radius: inherit;
-  background: linear-gradient(135deg, transparent 60%, rgba(0,229,255,0.05));
+  background: linear-gradient(135deg, transparent 60%, rgba(0,229,255,0.08));
   pointer-events: none;
 }
 
 .message.assistant {
   align-self: flex-start;
-  background: var(--hull);
+  background: rgba(255,255,255,0.06);
   border: var(--border);
   border-bottom-left-radius: 3px;
-  border-left: 2px solid rgba(0,229,255,0.3);
+  border-left: 2px solid rgba(0,229,255,0.4);
 }
 
 .message.system {
@@ -1228,9 +1228,10 @@ body::before {
 [data-theme="light"] body::before { display: none; }
 [data-theme="light"] .message.assistant { border-left-color: rgba(0,119,204,0.4); background: #ffffff; }
 [data-theme="light"] .message.user {
-  background: linear-gradient(135deg, #dbeeff, #e8f4ff);
-  border: 1px solid rgba(0,119,204,0.35);
+  background: linear-gradient(135deg, #b8d8f5, #cce5ff);
+  border: 1px solid rgba(0,119,204,0.45);
   border-left: 3px solid #0077cc;
+  color: #0d1f35;
 }
 [data-theme="light"] .msg-label { color: #8aa0b8; }
 [data-theme="light"] .message.user .msg-label {
