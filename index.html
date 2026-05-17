@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>HYDO.AI — Votre Intelligence Artificielle Personnelle</title>
+<title>HYDOLYS.AI — Votre Intelligence Artificielle Personnelle</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   /* ═══════════════════════════════════════════
-   HYDO.AI DESIGN SYSTEM — CYBER / 2ADVANCED
+   HYDOLYS.AI DESIGN SYSTEM — CYBER / 2ADVANCED
    ═══════════════════════════════════════════ */
 :root {
   --void: #0e1a2b;
@@ -1683,7 +1683,7 @@ body::before {
       </svg>
     </div>
     <div>
-      <div class="brand-name" id="main-brand-name">HYDO.AI</div>
+      <div class="brand-name" id="main-brand-name">HYDOLYS.AI</div>
       <div class="brand-sub">PERSONAL AI PLATFORM v3.0</div>
     </div>
   </div>
@@ -1894,7 +1894,7 @@ body::before {
 
       <!-- EXPLICATION DU CERVEAU CENTRAL -->
       <div class="info-block" style="border-left-color:var(--neon)">
-        <strong style="color:var(--neon)">▸ Qu'est-ce qu'un Agent HYDO.AI ?</strong><br>
+        <strong style="color:var(--neon)">▸ Qu'est-ce qu'un Agent HYDOLYS.AI ?</strong><br>
         Un Agent est un <em>cerveau central</em> qui dirige chaque conversation. Il définit la <strong>personnalité</strong>, le <strong>domaine d'expertise</strong>, le <strong>ton</strong> et les <strong>règles comportementales</strong> du modèle IA. Une fois activé, chaque réponse est façonnée par ses instructions. Vous pouvez créer plusieurs agents spécialisés (dev, rédaction, analyse, recherche…) et switcher selon la tâche.
       </div>
 
@@ -2088,7 +2088,7 @@ body::before {
     <!-- STEP 1: Welcome & API Key -->
     <div class="wizard-step active" id="wizard-step-1">
       <div class="wizard-logo">
-        <div class="wizard-logo-text">HYDO.AI</div>
+        <div class="wizard-logo-text">HYDOLYS.AI</div>
         <div class="wizard-logo-sub">PERSONAL AI PLATFORM</div>
       </div>
       <div class="wizard-progress">
@@ -2096,7 +2096,7 @@ body::before {
         <div class="wizard-dot" id="wdot-2"></div>
         <div class="wizard-dot" id="wdot-3"></div>
       </div>
-      <div class="wizard-title">Bienvenue sur HYDO.AI</div>
+      <div class="wizard-title">Bienvenue sur HYDOLYS.AI</div>
       <div class="wizard-subtitle">Votre IA personnelle, configurée selon votre vision.<br>Commençons par activer votre accès Mistral.</div>
       <div class="field-group">
         <label class="field-label">🔑 Clé API Mistral <span style="color:var(--danger)">*</span></label>
@@ -2116,7 +2116,7 @@ body::before {
         <div class="wizard-dot" id="wdot-3b"></div>
       </div>
       <div class="wizard-title">Définissez votre IA</div>
-      <div class="wizard-subtitle">Ces informations permettront à HYDO.AI de générer automatiquement 20 agents spécialisés parfaitement adaptés à votre contexte.</div>
+      <div class="wizard-subtitle">Ces informations permettront à HYDOLYS.AI de générer automatiquement 20 agents spécialisés parfaitement adaptés à votre contexte.</div>
       <div class="field-group">
         <label class="field-label">🎯 Nom de votre IA <span style="color:var(--danger)">*</span></label>
         <input type="text" class="field-input" id="wizard-ai-name" placeholder="Ex : Atlas, Sentinel, Nexus, MyAssistant…">
@@ -2150,7 +2150,7 @@ body::before {
       <div id="wizard-agents-preview" style="display:none">
         <div class="agent-gen-grid" id="wizard-agents-grid"></div>
         <div class="btn-row" style="border-top:none;padding-top:8px">
-          <button class="btn-primary" id="wizard-finish" style="width:100%;justify-content:center;display:flex">🚀 LANCER HYDO.AI →</button>
+          <button class="btn-primary" id="wizard-finish" style="width:100%;justify-content:center;display:flex">🚀 LANCER HYDOLYS.AI →</button>
         </div>
       </div>
       <div id="wizard-gen-error" style="display:none">
@@ -2295,7 +2295,7 @@ const MODELS = [
   { id:"voxtral-small-2507",          name:"🎵 Voxtral Sonic — Audio Rapide",     badge:"🎵 Audio",     desc:"Audio rapide, transcription intelligente multi-langues",       tokens:50000,  ctx:"4M",   temp:0.42, audio:true }
 ];
 
-const DB_NAME = "HYDO_AI_DB";
+const DB_NAME = "HYDOLYS_AI_DB";
 const DB_VERSION = 3;
 
 let state = {
@@ -2491,7 +2491,7 @@ function renderMessages() {
   if (!msgs.length) {
     c.innerHTML = `
       <div class="welcome-banner">
-        <div class="wv-logo">HYDO.AI</div>
+        <div class="wv-logo">HYDOLYS.AI</div>
         <div class="wv-sub">Satoshi Nakamoto AI PLATFORM v3.0</div>
         <p>Interface avancée avec mémoire globale, agents spécialisés et accès aux ${MODELS.length} modèles Mistral AI. Configurez votre clé API pour commencer.</p>
       </div>`;
@@ -2503,7 +2503,7 @@ function renderMessages() {
     const div = document.createElement("div");
     div.className = `message ${m.role}`;
     const memTags = m.memoryUsed?.length ? `<span class="mem-tag">⬡ MEM×${m.memoryUsed.length}</span>` : '';
-    const label = m.role === 'user' ? '▸ VOUS' : `▸ ${state.agent ? state.agent.name.toUpperCase() : 'HYDO.AI'}`;
+    const label = m.role === 'user' ? '▸ VOUS' : `▸ ${state.agent ? state.agent.name.toUpperCase() : 'HYDOLYS.AI'}`;
     const msgId = m.ts || Date.now();
     const memoBtn = m.role === 'assistant' ? '<button class="msg-action-btn" onclick="saveToMemory(' + msgId + ')">⬡ MÉMO</button>' : '';
     const printBtn = m.role === 'assistant' ? '<button class="msg-action-btn" onclick="window.print()">🖨 PDF</button>' : '';
@@ -2546,7 +2546,7 @@ function hideTyping() {
 // SYSTEM PROMPT
 // ════════════════════════════════════════
 function buildSystemPrompt() {
-  const aiName = state.aiConfig?.name || 'HYDO.AI';
+  const aiName = state.aiConfig?.name || 'HYDOLYS.AI';
   let prompt = `You are ${aiName}, a powerful AI assistant. Be precise, professional, and helpful.`;
   if (state.agent) {
     prompt = `[AGENT ${aiName} : ${state.agent.name}]\n`;
@@ -2588,7 +2588,7 @@ Un agent est un assistant spécialisé dans un domaine précis. Il connaît votr
 📈 <strong style="color:var(--text-bright)">SEO/GEO Master</strong> → améliore votre visibilité web<br>
 📱 <strong style="color:var(--text-bright)">Monétisation TikTok</strong> → stratégie contenu viral<br>
 💰 <strong style="color:var(--text-bright)">Finance Stratège</strong> → conseils patrimoniaux<br><br>
-<span style="color:var(--text-dim)">💡 Sans agent sélectionné, HYDO.AI répond en mode généraliste.</span>`;
+<span style="color:var(--text-dim)">💡 Sans agent sélectionné, HYDOLYS.AI répond en mode généraliste.</span>`;
       document.body.appendChild(tip3);
       agentHelpBtn.addEventListener('mouseenter', () => {
         const rect = agentHelpBtn.getBoundingClientRect();
@@ -2991,7 +2991,7 @@ async function exportData() {
     const payload = {
       version: "2.0",
       exported: new Date().toISOString(),
-      source: "HYDO.AI",
+      source: "HYDOLYS.AI",
       data: { chats, agents, global_memory: mems, settings }
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type:"application/json" });
@@ -3455,7 +3455,7 @@ function initWizardEvents() {
   // Finish
   document.getElementById('wizard-finish').onclick = async () => {
     hideWizard();
-    toast(`Bienvenue sur ${state.aiConfig?.name || 'HYDO.AI'} !`, "success");
+    toast(`Bienvenue sur ${state.aiConfig?.name || 'HYDOLYS.AI'} !`, "success");
   };
 
   // Retry
@@ -4003,7 +4003,7 @@ function bindEvents() {
   if ($("#btn-backup-now")) $("#btn-backup-now").onclick = exportData;
 
   if ($("#btn-clear-all")) $("#btn-clear-all").onclick = async () => {
-    if (!confirm("⚠ Supprimer TOUTES les données locales HYDO.AI ? Cette action est irréversible.")) return;
+    if (!confirm("⚠ Supprimer TOUTES les données locales HYDOLYS.AI ? Cette action est irréversible.")) return;
     const stores = ['chats','agents','settings','global_memory'];
     for (const s of stores) {
       const all = await db.getAll(s) || [];
